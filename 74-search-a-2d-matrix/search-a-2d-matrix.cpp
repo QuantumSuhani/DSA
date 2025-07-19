@@ -11,7 +11,7 @@ public:
     while(start<=end){
         int element=matrix[mid/col][mid%col];
         if(element==target){
-         return 1;
+         return true;
 
         }
         if(element>target){
