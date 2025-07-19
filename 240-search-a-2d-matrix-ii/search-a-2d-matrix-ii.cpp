@@ -18,11 +18,7 @@ public:
         else{
             rowindex++;
         }
-        
-
-        }
-        return 0;
     }
-
-        
+    return 0;
+  }       
 };
