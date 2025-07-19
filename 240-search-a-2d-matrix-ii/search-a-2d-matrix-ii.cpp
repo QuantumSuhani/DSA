@@ -4,10 +4,10 @@ public:
     int row=matrix.size();
     int col=matrix[0].size();
 
-     int rowindex=0;
-     int colindex=col-1;
+    int rowindex=0;
+    int colindex=col-1;
 
-     while(rowindex<row && colindex>=0){
+    while(rowindex<row && colindex>=0){
         int element=matrix[rowindex][colindex];
         if(element==target){
             return 1;
@@ -22,7 +22,7 @@ public:
 
         }
         return 0;
-     }
+    }
 
         
-    };
+};
