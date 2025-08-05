@@ -1,11 +1,13 @@
 #include <vector>
 #include <algorithm>
 
+using namespace std;
+
 class Solution {
 public:
-    int numOfUnplacedFruits(std::vector<int>& fruits, std::vector<int>& baskets) {
+    int numOfUnplacedFruits(vector<int>& fruits, vector<int>& baskets) {
         int n = baskets.size();
-        std::vector<bool> used(n, false);
+        vector<bool> used(n, false);
         int unplaced = 0;
 
         for (int fruit : fruits) {
@@ -25,3 +27,4 @@ public:
         return unplaced;
     }
 };
+
