@@ -9,12 +9,6 @@ public:
             n = n / 3;  // Keep dividing by 3
         }
 
-        // After the loop, check if n became 1
-        if (n == 1) {
-            return true;
-        } 
-        else {
-            return false;
-        }
+        return n==1;
     }
 };
