@@ -1,52 +1,41 @@
 class Solution {
-    vector<double> getvalidoperation(double a,double b){
-        vector<double> validoperation;
-        validoperation.push_back(a+b);
-        validoperation.push_back(a-b);
-        validoperation.push_back(b-a);
-        validoperation.push_back(a*b);
-
-        if(abs(b)>FLT_EPSILON)
-            validoperation.push_back(a/b);
-        if(abs(a)>FLT_EPSILON)
-            validoperation.push_back(b/a);
-
-        return validoperation;  
-    }
-
-    bool isPossible(vector<double>& arr) {
-        int n = (int)arr.size();
-        if(n == 1){
-            return abs(24.0 - arr[0]) <= FLT_EPSILON;
+    bool solve(vector<double>& nums) {
+        int n = nums.size();
+        if (n == 1) {
+            return fabs(nums[0] - 24.0) < 1e-6;  // tolerance check
         }
 
-        for(int fn=0; fn<n; fn++){
-            for(int sn=0; sn<n; sn++){
-                if(sn == fn) continue;
+        // try all pairs (avoid duplicate by fn < sn)
+        for (int i = 0; i < n; i++) {
+            for (int j = i + 1; j < n; j++) {
+                vector<double> next;
+                
+                // baki numbers push karo (i, j ke alawa)
+                for (int k = 0; k < n; k++) {
+                    if (k != i && k != j) next.push_back(nums[k]);
+                }
 
-                double firstnumber = arr[fn];
-                double secondnumber = arr[sn];
-                vector<double> validoperations = getvalidoperation(firstnumber,secondnumber);
+                double a = nums[i], b = nums[j];
 
-                for(double validoperation : validoperations) {
-                    vector<double> nextarr;
-                    nextarr.push_back(validoperation);
+                // possible results (optimised: commutative duplication avoid)
+                vector<double> results = {a + b, a - b, b - a, a * b};
+                if (fabs(b) > 1e-6) results.push_back(a / b);
+                if (fabs(a) > 1e-6) results.push_back(b / a);
 
-                    for(int i=0; i<n; i++){
-                        if(i==fn || i==sn) continue;
-                        nextarr.push_back(arr[i]);
-                    }
-
-                    if(isPossible(nextarr)) return true;
+                // har result try karo
+                for (double val : results) {
+                    next.push_back(val);
+                    if (solve(next)) return true;
+                    next.pop_back();
                 }
             }
         }
         return false;
-    }  
-    
+    }
+
 public:
     bool judgePoint24(vector<int>& cards) {
-        vector<double> arr(cards.begin(), cards.end());
-        return isPossible(arr);
+        vector<double> nums(cards.begin(), cards.end());
+        return solve(nums);
     }
 };
